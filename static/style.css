@@ -176,5 +176,95 @@ input[type="text"] {
     }
 }
 
-deixe ele responsivo,
-para os celulares
+/* Responsividade para Tablets e Celulares */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .category-item {
+        font-size: 0.9rem;
+        padding: 6px;
+    }
+
+    .timer-box {
+        font-size: 2rem;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 0.95rem;
+    }
+
+    input[type="text"] {
+        padding: 10px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 100%;
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    h1 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 8px;
+        margin: 15px 0;
+    }
+
+    .category-item {
+        font-size: 0.85rem;
+        padding: 5px;
+    }
+
+    .category-item input[type="checkbox"] {
+        height: 16px;
+        width: 16px;
+        margin-right: 8px;
+    }
+
+    .timer-box {
+        font-size: 1.8rem;
+        margin: 10px 0;
+    }
+
+    .score-box {
+        font-size: 1rem;
+    }
+
+    button {
+        padding: 10px;
+        margin: 5px 0;
+        font-size: 0.9rem;
+    }
+
+    input[type="text"] {
+        padding: 10px;
+        font-size: 16px;
+        margin: 10px 0;
+    }
+
+    .skip-btn {
+        margin-top: 10px;
+    }
+}

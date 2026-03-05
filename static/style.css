@@ -1,12 +1,14 @@
 /* Configurações Gerais */
 body {
     font-family: 'Poppins', sans-serif;
-    background: #eef2f3;
+    background: #d5d7d8;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Alinha no topo para evitar sumir em telas pequenas */
     min-height: 100vh;
+    min-height: -webkit-fill-available; /* Ajuste para iOS */
     margin: 0;
+    padding: 20px 0; /* Espaço para não encostar nas bordas superior/inferior */
 }
 
 .container {
@@ -17,6 +19,8 @@ body {
     width: 90%;
     max-width: 500px;
     text-align: center;
+    margin-top: 5vw;
+
 }
 
 h1 {

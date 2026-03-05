@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Quiz em Ação!</title>
+</head>
+<body>
+    <div class="container">
+        <div id="game-ui">
+            <div class="timer-box" id="timer">60</div>
+            <div class="score-box">Pontos: <span id="score">0</span></div>
+            <div class="skip-count">Pulos restantes: <span id="skips">3</span></div>
+            
+            <div id="feedback"></div> <h3 id="question-text">Carregando...</h3>
+            <div id="options-container"></div>
+            
+            <button id="btn-skip" class="skip-btn" onclick="skipQuestion()">PULAR PERGUNTA (3)</button>
+            <a href="/"><button>Voltar ao Menu</button></a>
+        </div>
+
+        <div id="end-screen" style="display:none;">
+            <h2>Fim de Jogo! 🕒</h2>
+            <p>Sua pontuação final: <strong id="final-score">0</strong></p>
+            <input type="text" id="player-name" placeholder="Seu nome para o ranking">
+            <button onclick="saveResult()" style="background:#27ae60;">SALVAR E VER RANKING</button>
+            <a href="/">Página Inicial</a>
+        </div>
+    </div>
+
+    <script>
+        const questions = {{ questions|tojson }};
+        const difficulty = "{{ difficulty }}";
+        let currentIdx = 0;
+        let score = 0;
+        let timeLeft = 60;
+        let skipsLeft = 3;
+
+        const pointsMap = { "facil": 2, "medio": 5, "dificil": 10 };
+
+        const countdown = setInterval(() => {
+            timeLeft--;
+            document.getElementById('timer').innerText = timeLeft;
+            if (timeLeft <= 0) finishGame();
+        }, 1000);
+
+        function showFeedback(msg, className) {
+            const f = document.getElementById('feedback');
+            f.innerText = msg;
+            f.className = className;
+            setTimeout(() => { f.innerText = ''; }, 1000);
+        }
+
+        function renderQuestion() {
+            if (currentIdx >= questions.length) { finishGame(); return; }
+            
+            const q = questions[currentIdx];
+            document.getElementById('question-text').innerHTML = q.question;
+            
+            const options = [...q.incorrect_answers, q.correct_answer].sort(() => Math.random() - 0.5);
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = opt;
+                btn.onclick = () => {
+                    if (opt === q.correct_answer) {
+                        score += pointsMap[difficulty];
+                        document.getElementById('score').innerText = score;
+                        showFeedback("CORRETO! ✅", "acertou");
+                    } else {
+                        showFeedback("ERROU! ❌", "errou");
+                    }
+                    currentIdx++;
+                    setTimeout(renderQuestion, 300); // Pequeno delay para ler o feedback
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function skipQuestion() {
+            if (skipsLeft > 0) {
+                skipsLeft--;
+                currentIdx++;
+                document.getElementById('skips').innerText = skipsLeft;
+                document.getElementById('btn-skip').innerText = `PULAR PERGUNTA (${skipsLeft})`;
+                if (skipsLeft === 0) document.getElementById('btn-skip').disabled = true;
+                renderQuestion();
+            }
+        }
+
+        function finishGame() {
+            clearInterval(countdown);
+            document.getElementById('game-ui').style.display = 'none';
+            document.getElementById('end-screen').style.display = 'block';
+            document.getElementById('final-score').innerText = score;
+        }
+
+        async function saveResult() {
+            const name = document.getElementById('player-name').value || "Anônimo";
+            await fetch('/save_score', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ name, score })
+            });
+            window.location.href = '/ranking';
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>

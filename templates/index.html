@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Quiz Master</title>
+    <style>
+        .category-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            text-align: left;
+            gap: 10px;
+            margin: 20px 0;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .category-item input {
+            width: auto;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎓 Quiz Master</h1>
+        <form action="/start_game" method="POST">
+
+            <label><strong> Dificuldade:</strong></label>
+            <select name="difficulty" style="width:100%; padding:10px; margin:10px 0; border-radius:8px;">
+                <option value="facil">Fácil (2 pts)</option>
+                <option value="medio" selected>Médio (5 pts)</option>
+                <option value="dificil">Difícil (10 pts)</option>
+            </select>
+
+            <label><strong> Categorias (escolha várias):</strong></label>
+            <div class="category-grid">
+                <label class="category-item">
+                    <input type="checkbox" name="categories" value="22" checked> Geografia
+                </label>
+                <label class="category-item">
+                    <input type="checkbox" name="categories" value="12"> Música
+                </label>
+                <label class="category-item">
+                    <input type="checkbox" name="categories" value="11" checked> Filmes
+                </label>
+                <label class="category-item">
+                    <input type="checkbox" name="categories" value="15" checked> Jogos
+                </label>
+                <label class="category-item">
+                    <input type="checkbox" name="categories" value="23"> História
+                </label>
+                <label class="category-item">
+                    <input type="checkbox" name="categories" value="17"> Ciência
+                </label>
+                <label class="category-item">
+                    <input type="checkbox" name="categories" value="18"> Informática
+                </label>
+            </div>
+
+            <button type="submit" style="background:#27ae60; font-weight: bold;">INICIAR DESAFIO 🚀</button>
+        </form>
+        <hr>
+        <a href="/ranking" style="color:#3498db; text-decoration:none;">Ver Ranking Global</a>
+    </div>
+</body>
+
+</html>

@@ -1,37 +1,33 @@
 /* Configurações Gerais */
-body { 
-    font-family: 'Poppins', sans-serif; 
-    background: #eef2f3; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    min-height: 100vh; 
-    margin: 0; 
-    padding: 10px; /* Evita que o container encoste nas bordas do celular */
-    box-sizing: border-box;
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #eef2f3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
 }
 
-.container { 
-    background: white; 
-    padding: 20px; /* Reduzido para ganhar espaço em telas pequenas */
-    border-radius: 15px; 
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
-    width: 100%; /* Ocupa a largura disponível */
-    max-width: 500px; 
-    text-align: center; 
-    box-sizing: border-box;
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
 }
 
-h1 { 
-    color: #2c3e50; 
-    margin-bottom: 20px; 
-    font-size: 1.5rem; /* Ajuste para não quebrar em 3 linhas no mobile */
+h1 {
+    color: #2c3e50;
+    margin-bottom: 20px;
 }
 
-/* Grid de Categorias - O PONTO CHAVE */
+/* Grid de Categorias e Checkboxes Estilizadas */
 .category-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Padrão: 2 colunas */
+    grid-template-columns: 1fr 1fr;
     text-align: left;
     gap: 10px;
     margin: 20px 0;
@@ -43,77 +39,142 @@ h1 {
 .category-item {
     display: flex;
     align-items: center;
-    font-size: 0.9rem; /* Levemente menor para mobile */
-    padding: 10px 5px; /* Aumentado o "touch target" para facilitar o clique */
+    font-size: 0.95rem;
+    padding: 8px;
     border-radius: 8px;
     transition: background 0.2s;
     cursor: pointer;
     color: #34495e;
 }
 
+.category-item:hover {
+    background: #f0f7ff;
+}
+
 /* Esconde a checkbox original e cria a nova */
 .category-item input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
-    height: 20px; /* Um pouco maior para facilitar o toque */
-    width: 20px;
+    height: 18px;
+    width: 18px;
     background-color: #fff;
     border: 2px solid #3498db;
     border-radius: 4px;
-    flex-shrink: 0; /* Impede a checkbox de amassar se o texto for longo */
-    margin-right: 10px;
+    cursor: pointer;
+    margin-right: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: 0.3s;
 }
 
-/* Interface do Jogo */
-.timer-box { font-size: 2rem; color: #e74c3c; font-weight: bold; }
-.score-box { font-size: 1rem; color: #7f8c8d; margin-bottom: 10px; }
-
-button { 
-    background: #3498db; 
-    color: white; 
-    border: none; 
-    padding: 14px; /* Mais alto para facilitar o toque (Mobile Friendly) */
-    border-radius: 8px; 
-    cursor: pointer; 
-    width: 100%; 
-    margin: 8px 0; 
-    font-size: 1rem; 
-    transition: 0.2s;
-    touch-action: manipulation; /* Melhora a resposta ao toque */
+.category-item input[type="checkbox"]:checked {
+    background-color: #3498db;
 }
 
-input[type="text"] { 
-    width: 100%; 
-    padding: 14px; 
-    font-size: 16px; /* IMPORTANTE: No iOS, fontes menores que 16px causam zoom automático indesejado */
-    margin: 15px 0; 
-    border: 2px solid #ddd; 
-    border-radius: 8px; 
+.category-item input[type="checkbox"]:checked:after {
+    content: "✔";
+    color: white;
+    font-size: 12px;
+}
+
+/* Interface do Jogo */
+.timer-box {
+    font-size: 2.5rem;
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.score-box {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+}
+
+.skip-count {
+    color: #f39c12;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+#feedback {
+    font-weight: bold;
+    height: 30px;
+    margin: 10px 0;
+    font-size: 1.1rem;
+}
+
+.acertou {
+    color: #27ae60;
+    animation: shake 0.3s;
+}
+
+.errou {
+    color: #e74c3c;
+}
+
+button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    margin: 6px 0;
+    font-size: 1rem;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+}
+
+.option-btn {
+    background: #f8f9fa;
+    color: #333;
+    border: 2px solid #ddd;
+}
+
+.option-btn:hover {
+    border-color: #3498db;
+    background: #fff;
+}
+
+.skip-btn {
+    background: #f39c12;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.skip-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     box-sizing: border-box;
 }
 
-/* --- MEDIA QUERIES PARA CELULARES PEQUENOS --- */
-
-@media (max-width: 400px) {
-    .category-grid {
-        grid-template-columns: 1fr; /* Em telas muito pequenas, usa apenas 1 coluna */
-    }
-    
-    .container {
-        padding: 15px;
+@keyframes shake {
+    0% {
+        transform: scale(1);
     }
 
-    h1 {
-        font-size: 1.2rem;
+    50% {
+        transform: scale(1.1);
     }
 
-    .timer-box {
-        font-size: 1.8rem;
+    100% {
+        transform: scale(1);
     }
 }
 
-/* Animações e Outros permanecem iguais... */
+deixe ele responsivo,
+para os celulares

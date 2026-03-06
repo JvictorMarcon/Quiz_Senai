@@ -5,7 +5,7 @@ import os
 import random
 from deep_translator import GoogleTranslator
 
-app = Flask(__name__, template_folder='templates', static_folder='static')
+app = Flask(__name__)
 app.secret_key = 'chave_secreta_quiz_123'
 
 RANKING_FILE = 'ranking.json'
@@ -113,6 +113,12 @@ def ranking():
             except:
                 data = []
     return render_template('ranking.html', ranking=data)
+
+
+@app.errorhandler(404)
+def page_not_founded(erro):
+    return render_template('erro404.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

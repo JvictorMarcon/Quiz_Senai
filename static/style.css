@@ -272,3 +272,25 @@ input[type="text"] {
         margin-top: 10px;
     }
 }
+
+.erro{
+    background-color: white;
+    height: 20vw;
+    width: 40vw;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.cabecalho-erro{
+    font-size: 1.5rem;
+    color: #e74c3c;
+    margin-bottom: 15px;
+}
+.conteudo-erro{
+    font-size: 1rem;
+    color: #7f8c8d;
+    align-self: center;
+}
